@@ -3,6 +3,7 @@ package usecases
 import "bookLib/domain"
 
 type BookAdapter interface {
+	AllBooks() []domain.Book
 }
 
 type BookUseCase struct {
