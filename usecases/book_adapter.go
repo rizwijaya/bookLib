@@ -5,6 +5,7 @@ import "bookLib/domain"
 type BookAdapter interface {
 	AllBooks() []domain.Book
 	GetBookByID(id string) domain.Book
+	CreateBook(book domain.Book) error
 }
 
 type BookUseCase struct {

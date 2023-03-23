@@ -11,6 +11,7 @@ func NewRouter(router *gin.Engine) *gin.Engine {
 	api := router.Group("/books")
 	api.GET("/", bookControllerV1.GetBooks)
 	api.GET("/:id", bookControllerV1.GetBookByID)
+	api.POST("/", bookControllerV1.AddBook)
 
 	return router
 }
