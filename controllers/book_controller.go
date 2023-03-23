@@ -52,7 +52,7 @@ func (bc *BookController) AddBook(c *gin.Context) {
 		}
 	}
 
-	err := bc.BookUseCase.CreateBook(book)
+	book, err := bc.BookUseCase.CreateBook(book)
 	if err != nil {
 		response := api.APIResponse("Failed to Add New Book!", http.StatusBadRequest, "error", err)
 		c.JSON(http.StatusBadRequest, response)

@@ -20,10 +20,10 @@ func (bu *BookUseCase) GetBookByID(id string) domain.Book {
 	return domain.Book{}
 }
 
-func (bu *BookUseCase) CreateBook(book domain.Book) error {
+func (bu *BookUseCase) CreateBook(book domain.Book) (domain.Book, error) {
 	book.ID = len(books) + 1
 	books = append(books, book)
-	return nil
+	return book, nil
 }
 
 func (bu *BookUseCase) UpdateBook(id string, book domain.Book) (domain.Book, error) {

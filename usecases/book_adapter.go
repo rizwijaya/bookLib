@@ -5,7 +5,7 @@ import "bookLib/domain"
 type BookAdapter interface {
 	AllBooks() []domain.Book
 	GetBookByID(id string) domain.Book
-	CreateBook(book domain.Book) error
+	CreateBook(book domain.Book) (domain.Book, error)
 	UpdateBook(id string, book domain.Book) (domain.Book, error)
 	DeleteBook(id string) error
 }
@@ -36,4 +36,10 @@ var books = domain.Books{
 		Author: "C.S. Lewis",
 		Desc:   "The Chronicles of Narnia is a series of seven fantasy novels by C. S. Lewis. It is considered a classic of children's literature and is the author's best-known work, having sold over 100 million copies in 47 languages. The series was written by Lewis between 1949 and 1954, although it was not published until 1950. The books are set in the fictional realm of Narnia, a fantasy world of magic, mythical beasts, and talking animals.",
 	},
+	// {
+	// 	ID:     4,
+	// 	Title:  "The Lion, the Witch and the Wardrobe",
+	// 	Author: "C.S. Lewis",
+	// 	Desc:   "The Lion, the Witch and the Wardrobe is a fantasy novel for children by C. S. Lewis, published by Geoffrey Bles in 1950. It is the first published and best known of seven novels in The Chronicles of Narnia (1950–1956). It is considered a classic of children's literature and is the author's best-known work, having sold over 100 million copies in 47 languages.",
+	// },
 }
