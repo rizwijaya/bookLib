@@ -12,6 +12,7 @@ func NewRouter(router *gin.Engine) *gin.Engine {
 	api.GET("/", bookControllerV1.GetBooks)
 	api.GET("/:id", bookControllerV1.GetBookByID)
 	api.POST("/", bookControllerV1.AddBook)
+	api.PUT("/:id", bookControllerV1.UpdateBook)
 
 	return router
 }

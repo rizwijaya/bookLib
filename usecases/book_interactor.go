@@ -2,6 +2,7 @@ package usecases
 
 import (
 	"bookLib/domain"
+	"errors"
 	"strconv"
 )
 
@@ -23,4 +24,15 @@ func (bu *BookUseCase) CreateBook(book domain.Book) error {
 	book.ID = len(books) + 1
 	books = append(books, book)
 	return nil
+}
+
+func (bu *BookUseCase) UpdateBook(id string, book domain.Book) (domain.Book, error) {
+	id_book, _ := strconv.Atoi(id)
+	for i, b := range books {
+		if b.ID == id_book {
+			books[i] = book
+			return book, nil
+		}
+	}
+	return domain.Book{}, errors.New("book not found")
 }

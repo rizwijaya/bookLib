@@ -6,6 +6,7 @@ type BookAdapter interface {
 	AllBooks() []domain.Book
 	GetBookByID(id string) domain.Book
 	CreateBook(book domain.Book) error
+	UpdateBook(id string, book domain.Book) (domain.Book, error)
 }
 
 type BookUseCase struct {

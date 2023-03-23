@@ -62,3 +62,33 @@ func (bc *BookController) AddBook(c *gin.Context) {
 	response := api.APIResponse("Success to Add New Book!", http.StatusOK, "success", book)
 	c.JSON(http.StatusOK, response)
 }
+
+func (bc *BookController) UpdateBook(c *gin.Context) {
+	id := c.Param("id")
+	var book domain.Book
+	if err := c.ShouldBindJSON(&book); err != nil {
+		var verr validator.ValidationErrors
+		if errors.As(err, &verr) {
+			res := make([]error.Form, len(verr))
+			for i, fe := range verr {
+				res[i] = error.Form{
+					Field:   fe.Field(),
+					Message: error.FormValidationError(fe),
+				}
+			}
+			response := api.APIResponse("Failed to Update Book!", http.StatusBadRequest, "error", res)
+			c.JSON(http.StatusBadRequest, response)
+			return
+		}
+	}
+
+	book, err := bc.BookUseCase.UpdateBook(id, book)
+	if err != nil {
+		response := api.APIResponse("Failed to Update Book!", http.StatusBadRequest, "error", err)
+		c.JSON(http.StatusBadRequest, response)
+		return
+	}
+
+	response := api.APIResponse("Success to Update Book!", http.StatusOK, "success", book)
+	c.JSON(http.StatusOK, response)
+}
