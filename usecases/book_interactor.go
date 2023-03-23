@@ -27,9 +27,13 @@ func (bu *BookUseCase) CreateBook(book domain.Book) (domain.Book, error) {
 }
 
 func (bu *BookUseCase) UpdateBook(id string, book domain.Book) (domain.Book, error) {
-	id_book, _ := strconv.Atoi(id)
+	var err error
+	book.ID, err = strconv.Atoi(id)
+	if err != nil {
+		return domain.Book{}, err
+	}
 	for i, b := range books {
-		if b.ID == id_book {
+		if b.ID == book.ID {
 			books[i] = book
 			return book, nil
 		}

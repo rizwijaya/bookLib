@@ -64,8 +64,8 @@ func (bc *BookController) AddBook(c *gin.Context) {
 }
 
 func (bc *BookController) UpdateBook(c *gin.Context) {
-	id := c.Param("id")
 	var book domain.Book
+	id := c.Param("id")
 	if err := c.ShouldBindJSON(&book); err != nil {
 		var verr validator.ValidationErrors
 		if errors.As(err, &verr) {
