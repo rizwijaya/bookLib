@@ -4,6 +4,7 @@ import "bookLib/domain"
 
 type BookAdapter interface {
 	AllBooks() []domain.Book
+	GetBookByID(id string) domain.Book
 }
 
 type BookUseCase struct {
