@@ -13,6 +13,7 @@ func NewRouter(router *gin.Engine) *gin.Engine {
 	api.GET("/:id", bookControllerV1.GetBookByID)
 	api.POST("/", bookControllerV1.AddBook)
 	api.PUT("/:id", bookControllerV1.UpdateBook)
+	api.DELETE("/:id", bookControllerV1.DeleteBook)
 
 	return router
 }

@@ -36,3 +36,14 @@ func (bu *BookUseCase) UpdateBook(id string, book domain.Book) (domain.Book, err
 	}
 	return domain.Book{}, errors.New("book not found")
 }
+
+func (bu *BookUseCase) DeleteBook(id string) error {
+	id_book, _ := strconv.Atoi(id)
+	for i, b := range books {
+		if b.ID == id_book {
+			books = append(books[:i], books[i+1:]...)
+			return nil
+		}
+	}
+	return errors.New("book not found")
+}
