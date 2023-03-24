@@ -103,7 +103,7 @@ Berikut merupakan hasil dari project yang telah dijalankan:
     + Berhasil mendapatkan data buku berdasarkan id yang telah terdaftar
     ![image](/images/ResultSuccess/Result_Success_GetBookByID.jpg)
     + Gagal mendapatkan data buku karena id yang dimasukkan tidak terdaftar
-    ![image](/images/ResultFailed/Result_Failed_GetBookByID.jpg)
+    ![image](/images/ResultFailed/Result_Failed_GetBookbyID.jpg)
 + Create New Book
     + Berhasil membuat data buku baru
     ![image](/images/ResultSuccess/Result_Success_AddNewBook.jpg)
