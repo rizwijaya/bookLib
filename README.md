@@ -101,9 +101,9 @@ Berikut merupakan hasil dari project yang telah dijalankan:
     ![image](/images/ResultFailed/Result_Failed_GetAllBook.jpg)
 + Get Book By Id
     + Berhasil mendapatkan data buku berdasarkan id yang telah terdaftar
-    ![image](/images/ResultSuccess/Result_Success_GetBookById.jpg)
+    ![image](/images/ResultSuccess/Result_Success_GetBookByID.jpg)
     + Gagal mendapatkan data buku karena id yang dimasukkan tidak terdaftar
-    ![image](/images/ResultFailed/Result_Failed_GetBookById.jpg)
+    ![image](/images/ResultFailed/Result_Failed_GetBookByID.jpg)
 + Create New Book
     + Berhasil membuat data buku baru
     ![image](/images/ResultSuccess/Result_Success_AddNewBook.jpg)
