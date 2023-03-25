@@ -14,7 +14,7 @@ import (
 func (bc *BookController) GetBooks(c *gin.Context) {
 	book := bc.BookUseCase.AllBooks()
 	if len(book) == 0 {
-		response := api.APIResponse("Book Not Found!", http.StatusNotFound, "error", nil)
+		response := api.APIResponse("Book Not Found!", http.StatusOK, "error", nil)
 		c.JSON(http.StatusOK, response)
 		return
 	}
