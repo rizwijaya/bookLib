@@ -28,15 +28,16 @@ func (bc *BookController) GetBooks(c *gin.Context) {
 func (bc *BookController) GetBookByID(c *gin.Context) {
 	id := c.Param("id")
 	book, err := bc.BookUseCase.GetBookByID(id)
-	if err != nil && err.Error() != "sql: no rows in result set" {
+	if err != nil {
 		log.Println(err)
+		if err.Error() == "sql: no rows in result set" {
+			c.JSON(http.StatusNotFound, "Book Not Found!")
+			return
+		}
 		c.JSON(http.StatusInternalServerError, "Failed to Get Book!")
 		return
 	}
-	if book == (domain.Book{}) {
-		c.JSON(http.StatusOK, "Book Not Found!")
-		return
-	}
+
 	c.JSON(http.StatusOK, book)
 }
 
@@ -87,8 +88,12 @@ func (bc *BookController) UpdateBook(c *gin.Context) {
 	}
 
 	book, err := bc.BookUseCase.UpdateBook(id, book)
-	if err != nil {
+	if err != nil && err.Error() != "book not found" {
 		log.Println(err)
+		if err.Error() == "book not found" {
+			c.JSON(http.StatusNotFound, "Book Not Found!")
+			return
+		}
 		c.JSON(http.StatusBadRequest, "Failed to Update Book!")
 		return
 	}
@@ -99,8 +104,12 @@ func (bc *BookController) UpdateBook(c *gin.Context) {
 func (bc *BookController) DeleteBook(c *gin.Context) {
 	id := c.Param("id")
 	err := bc.BookUseCase.DeleteBook(id)
-	if err != nil {
+	if err != nil && err.Error() != "book not found" {
 		log.Println(err)
+		if err.Error() == "book not found" {
+			c.JSON(http.StatusNotFound, "Book Not Found!")
+			return
+		}
 		c.JSON(http.StatusBadRequest, "Failed to Delete Book!")
 		return
 	}

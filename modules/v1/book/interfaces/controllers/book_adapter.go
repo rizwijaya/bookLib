@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	bookRepository "bookLib/modules/v1/book/interfaces/repository"
+	bookRepository "bookLib/modules/v1/book/interfaces/repositories"
 	bookUseCase "bookLib/modules/v1/book/usecases"
 	"database/sql"
 )

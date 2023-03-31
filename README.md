@@ -49,32 +49,47 @@ Secara sederhana project ini dibuat dengan menggunakan struktur Clean Architectu
 Dari Struktur tersebut dilakukan penyesuaian, dikarenakan dalam Rest API masih menggunakan API yang sederhana, maka struktur project akan terlihat seperti berikut:
 | Layer                | Directory      |
 |----------------------|----------------|
-| Frameworks & Drivers | app            |
-| Interface            | controllers    |
-| Usecases             | usecases       |
-| Entities             | domain         |
+| Frameworks & Drivers | Infrastructures|
+| Interface            | Interfaces     |
+| Usecases             | Usecases       |
+| Entities             | Domain         |
 
 Dengan detail direktori dan file yang menyusun project sebagai berikut:
 
 ```bash
 ├── app
 │   └── main.go
-├── controllers
-│   ├── book_adapter.go
-│   └── book_controller.go
-├── domain
-│   └──── entity.go
+├── infrastructures
+│   ├── config
+│   │   ├── entity.go
+│   │   └── config.go
+│   └── databases
+│       └── postgre.go
+├── modules
+│   └── v1
+│       └── book
+│           ├── domain
+│           │   └── entity.go
+│           ├── interfaces
+│           │   ├── controllers
+│           │   │   ├── book_adapter.go
+│           │   │   └── book_controller.go
+│           │   ├── repositories
+│           │   │   ├── book_adapter.go
+│           │   │   └── book_repository.go
+│           ├── routes
+│           │   └── book_routes.go
+│           └── usecases
+│               ├── book_adapater.go
+│               └── book_interactor.go
 ├── pkg
 │   ├── api_response
 │   │   ├── entity.go
 │   │   └── response.go
 │   ├── http-error
 │   │   └── error.go
-├── routes
-│   └── book_routes.go
-├── usecases
-│   ├── book_adapater.go
-│   └── book_interactor.go
+├── .env
+└── Makefile
 
 ```
 ### Dokumentasi API
@@ -93,6 +108,9 @@ Berikut merupakan hasil dari project yang telah dijalankan:
 
 + Program saat berhasil dijalankan
     ![image](/images/RunningOutput.jpg)
+
++ Database saat berhasil dijalankan
+    ![image](/images/RunningOutputDB.jpg)
 
 + Get All Books
     +  Berhasil mendapatkan data buku yang telah terdaftar

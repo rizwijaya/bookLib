@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bookLib/infrastructures/config"
 	database "bookLib/infrastructures/databases"
 	routesV1 "bookLib/modules/v1/book/routes"
 	error "bookLib/pkg/http-error"
@@ -10,6 +11,11 @@ import (
 )
 
 func main() {
+	config, err := config.New()
+	if err != nil {
+		panic(err)
+	}
+
 	router := gin.Default()
 	router.Use(cors.Default())
 	db := database.NewDatabases()
@@ -18,5 +24,5 @@ func main() {
 	router.NoRoute(error.PageNotFound())
 	router.NoMethod(error.NoMethod())
 
-	router.Run(":8080")
+	router.Run(config.App.Url + ":" + config.App.Port)
 }

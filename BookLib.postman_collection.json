@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "796d9fae-d0f2-4dca-ae40-b549cf866875",
-		"name": "BookLib",
+		"_postman_id": "6e9ef77b-ba03-491f-a99f-201e7087fec7",
+		"name": "BookLib-Challenge-7",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "15365587"
 	},
@@ -32,7 +32,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/books/1",
+					"raw": "http://localhost:8080/books/2",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -40,7 +40,7 @@
 					"port": "8080",
 					"path": [
 						"books",
-						"1"
+						"2"
 					]
 				}
 			},
@@ -52,7 +52,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/books/4",
+					"raw": "http://localhost:8080/books/3",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -60,7 +60,7 @@
 					"port": "8080",
 					"path": [
 						"books",
-						"4"
+						"3"
 					]
 				}
 			},
@@ -73,7 +73,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"title\": \"The Lion, the Witch and the Wardrobe\",\r\n    \"author\": \"C.S. Lewis\",\r\n    \"desc\": \"The Lion, the Witch and the Wardrobe is a fantasy novel for children by C. S. Lewis, published by Geoffrey Bles in 1950. It is the first published and best known of seven novels in The Chronicles of Narnia (1950–1956). It is considered a classic of children's literature and is the author's best-known work, having sold over 100 million copies in 47 languages.\"\r\n}"
+					"raw": "{\r\n    \"title\": \"The Hobbit\",\r\n    \"author\": \"J.R.R. Tolkien\",\r\n    \"desc\": \"The Hobbit is a children's fantasy novel by English author J. R. R. Tolkien. It was published on 21 September 1937 to wide critical acclaim, being nominated for the Carnegie Medal and awarded a prize from the New York Herald Tribune for best juvenile fiction. The book remains popular and is recognized as a classic in children's literature.\"\r\n}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/books/",

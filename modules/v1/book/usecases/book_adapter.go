@@ -2,7 +2,7 @@ package usecases
 
 import (
 	"bookLib/modules/v1/book/domain"
-	bookRepository "bookLib/modules/v1/book/interfaces/repository"
+	bookRepository "bookLib/modules/v1/book/interfaces/repositories"
 )
 
 type BookAdapter interface {
