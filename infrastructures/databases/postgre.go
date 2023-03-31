@@ -5,24 +5,17 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
-)
 
-func CreateDB(db *sql.DB) error {
-	sqlTable := `CREATE DATABASE IF NOT EXISTS library;`
-	_, err := db.Exec(sqlTable)
-	if err != nil {
-		return err
-	}
-	return nil
-}
+	_ "github.com/lib/pq"
+)
 
 func MigrateDB(db *sql.DB) error {
 	sqlTable := `
 	CREATE TABLE IF NOT EXISTS books(
-		id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+		id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 		title varchar(100) NOT NULL,
 		author varchar(100) NOT NULL,
-		desc varchar(400) NOT NULL
+		description varchar(400) NOT NULL
 	);
 	`
 	_, err := db.Exec(sqlTable)
@@ -37,13 +30,13 @@ func Postgres() (*sql.DB, error) {
 	if err != nil {
 		return nil, err
 	}
-	psql := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable TimeZone=Asia/Jakarta", config.Database.Host, config.Database.Port, config.Database.Username, config.Database.Password, config.Database.Name)
+	psql := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable", config.Database.Host, config.Database.Port, config.Database.Username, config.Database.Password, config.Database.Name)
 
 	db, err := sql.Open("postgres", psql)
 	if err != nil {
 		return nil, err
 	}
-	defer db.Close()
+	//defer db.Close()
 
 	err = db.Ping()
 	if err != nil {
@@ -60,19 +53,12 @@ func NewDatabases() *sql.DB {
 	}
 	fmt.Println("Successfully connected!")
 
-	err = CreateDB(db)
-	if err != nil {
-		log.Fatalln(err)
-		return nil
-	}
-	fmt.Println("Database successfully created")
-
-	err = MigrateDB(db)
-	if err != nil {
-		log.Fatalln(err)
-		return nil
-	}
-	fmt.Println("Migration successfully done")
+	// err = MigrateDB(db)
+	// if err != nil {
+	// 	log.Fatalln(err)
+	// 	return nil
+	// }
+	// fmt.Println("Migration successfully done")
 
 	return db
 }

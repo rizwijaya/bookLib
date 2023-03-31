@@ -1,8 +1,12 @@
 package repository
 
-import "database/sql"
+import (
+	"bookLib/modules/v1/book/domain"
+	"database/sql"
+)
 
 type RepositoryPresenter interface {
+	AllBooks() ([]domain.Book, error)
 }
 
 type Repository struct {
