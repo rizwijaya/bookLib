@@ -1,6 +1,8 @@
 package repository
 
-import "bookLib/modules/v1/book/domain"
+import (
+	"bookLib/modules/v1/book/domain"
+)
 
 func (r *Repository) AllBooks() ([]domain.Book, error) {
 	var books []domain.Book
@@ -18,4 +20,13 @@ func (r *Repository) AllBooks() ([]domain.Book, error) {
 		books = append(books, book)
 	}
 	return books, nil
+}
+
+func (r *Repository) GetBookByID(id string) (domain.Book, error) {
+	var book domain.Book
+	err := r.db.QueryRow("SELECT * FROM books WHERE id = "+id).Scan(&book.ID, &book.Title, &book.Author, &book.Desc)
+	if err != nil {
+		return domain.Book{}, err
+	}
+	return book, nil
 }

@@ -7,6 +7,7 @@ import (
 
 type RepositoryPresenter interface {
 	AllBooks() ([]domain.Book, error)
+	GetBookByID(id string) (domain.Book, error)
 }
 
 type Repository struct {

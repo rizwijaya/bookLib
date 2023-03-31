@@ -8,15 +8,9 @@ func (bu *BookUseCase) AllBooks() ([]domain.Book, error) {
 	return bu.repoBook.AllBooks()
 }
 
-// func (bu *BookUseCase) GetBookByID(id string) domain.Book {
-// 	id_book, _ := strconv.Atoi(id)
-// 	for _, book := range books {
-// 		if book.ID == id_book {
-// 			return book
-// 		}
-// 	}
-// 	return domain.Book{}
-// }
+func (bu *BookUseCase) GetBookByID(id string) (domain.Book, error) {
+	return bu.repoBook.GetBookByID(id)
+}
 
 // func (bu *BookUseCase) CreateBook(book domain.Book) (domain.Book, error) {
 // 	book.ID = len(books) + 1
