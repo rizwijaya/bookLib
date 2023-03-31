@@ -12,11 +12,9 @@ func (bu *BookUseCase) GetBookByID(id string) (domain.Book, error) {
 	return bu.repoBook.GetBookByID(id)
 }
 
-// func (bu *BookUseCase) CreateBook(book domain.Book) (domain.Book, error) {
-// 	book.ID = len(books) + 1
-// 	books = append(books, book)
-// 	return book, nil
-// }
+func (bu *BookUseCase) CreateBook(book domain.Book) (domain.Book, error) {
+	return bu.repoBook.CreateBook(book)
+}
 
 // func (bu *BookUseCase) UpdateBook(id string, book domain.Book) (domain.Book, error) {
 // 	var err error

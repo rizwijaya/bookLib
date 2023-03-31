@@ -30,3 +30,11 @@ func (r *Repository) GetBookByID(id string) (domain.Book, error) {
 	}
 	return book, nil
 }
+
+func (r *Repository) CreateBook(book domain.Book) (domain.Book, error) {
+	_, err := r.db.Exec("INSERT INTO books (title, author, description) VALUES ($1, $2, $3)", book.Title, book.Author, book.Desc)
+	if err != nil {
+		return domain.Book{}, err
+	}
+	return book, nil
+}
