@@ -1,7 +1,7 @@
 package usecases
 
 import (
-	"bookLib/domain"
+	"bookLib/modules/v1/book/domain"
 	"errors"
 	"strconv"
 )
