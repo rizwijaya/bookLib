@@ -10,6 +10,7 @@ type RepositoryPresenter interface {
 	GetBookByID(id string) (domain.Book, error)
 	CreateBook(book domain.Book) (domain.Book, error)
 	UpdateBook(id string, book domain.Book) (domain.Book, error)
+	DeleteBook(id string) error
 }
 
 type Repository struct {

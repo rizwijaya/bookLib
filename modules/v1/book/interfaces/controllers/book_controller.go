@@ -96,14 +96,13 @@ func (bc *BookController) UpdateBook(c *gin.Context) {
 	c.JSON(http.StatusOK, "Updated")
 }
 
-// func (bc *BookController) DeleteBook(c *gin.Context) {
-// 	id := c.Param("id")
-// 	err := bc.BookUseCase.DeleteBook(id)
-// 	if err != nil {
-// 		response := api.APIResponse("Failed to Delete Book!", http.StatusBadRequest, "error", err)
-// 		c.JSON(http.StatusBadRequest, response)
-// 		return
-// 	}
-// 	response := api.APIResponse("Success to Delete Book!", http.StatusOK, "success", nil)
-// 	c.JSON(http.StatusOK, response)
-// }
+func (bc *BookController) DeleteBook(c *gin.Context) {
+	id := c.Param("id")
+	err := bc.BookUseCase.DeleteBook(id)
+	if err != nil {
+		log.Println(err)
+		c.JSON(http.StatusBadRequest, "Failed to Delete Book!")
+		return
+	}
+	c.JSON(http.StatusOK, "Deleted")
+}
