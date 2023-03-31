@@ -38,3 +38,11 @@ func (r *Repository) CreateBook(book domain.Book) (domain.Book, error) {
 	}
 	return book, nil
 }
+
+func (r *Repository) UpdateBook(id string, book domain.Book) (domain.Book, error) {
+	_, err := r.db.Exec("UPDATE books SET title = $1, author = $2, description = $3 WHERE id = "+id, book.Title, book.Author, book.Desc)
+	if err != nil {
+		return domain.Book{}, err
+	}
+	return book, nil
+}

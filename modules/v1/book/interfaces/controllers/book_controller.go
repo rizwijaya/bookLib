@@ -67,35 +67,34 @@ func (bc *BookController) AddBook(c *gin.Context) {
 	c.JSON(http.StatusOK, "Created")
 }
 
-// func (bc *BookController) UpdateBook(c *gin.Context) {
-// 	var book domain.Book
-// 	id := c.Param("id")
-// 	if err := c.ShouldBindJSON(&book); err != nil {
-// 		var verr validator.ValidationErrors
-// 		if errors.As(err, &verr) {
-// 			res := make([]error.Form, len(verr))
-// 			for i, fe := range verr {
-// 				res[i] = error.Form{
-// 					Field:   fe.Field(),
-// 					Message: error.FormValidationError(fe),
-// 				}
-// 			}
-// 			response := api.APIResponse("Failed to Update Book!", http.StatusBadRequest, "error", res)
-// 			c.JSON(http.StatusBadRequest, response)
-// 			return
-// 		}
-// 	}
+func (bc *BookController) UpdateBook(c *gin.Context) {
+	var book domain.Book
+	id := c.Param("id")
+	if err := c.ShouldBindJSON(&book); err != nil {
+		var verr validator.ValidationErrors
+		if errors.As(err, &verr) {
+			res := make([]error.Form, len(verr))
+			for i, fe := range verr {
+				res[i] = error.Form{
+					Field:   fe.Field(),
+					Message: error.FormValidationError(fe),
+				}
+			}
+			log.Println(res)
+			c.JSON(http.StatusBadRequest, res)
+			return
+		}
+	}
 
-// 	book, err := bc.BookUseCase.UpdateBook(id, book)
-// 	if err != nil {
-// 		response := api.APIResponse("Failed to Update Book!", http.StatusBadRequest, "error", err)
-// 		c.JSON(http.StatusBadRequest, response)
-// 		return
-// 	}
+	book, err := bc.BookUseCase.UpdateBook(id, book)
+	if err != nil {
+		log.Println(err)
+		c.JSON(http.StatusBadRequest, "Failed to Update Book!")
+		return
+	}
 
-// 	response := api.APIResponse("Success to Update Book!", http.StatusOK, "success", book)
-// 	c.JSON(http.StatusOK, response)
-// }
+	c.JSON(http.StatusOK, "Updated")
+}
 
 // func (bc *BookController) DeleteBook(c *gin.Context) {
 // 	id := c.Param("id")

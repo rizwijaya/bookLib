@@ -16,20 +16,9 @@ func (bu *BookUseCase) CreateBook(book domain.Book) (domain.Book, error) {
 	return bu.repoBook.CreateBook(book)
 }
 
-// func (bu *BookUseCase) UpdateBook(id string, book domain.Book) (domain.Book, error) {
-// 	var err error
-// 	book.ID, err = strconv.Atoi(id)
-// 	if err != nil {
-// 		return domain.Book{}, err
-// 	}
-// 	for i, b := range books {
-// 		if b.ID == book.ID {
-// 			books[i] = book
-// 			return book, nil
-// 		}
-// 	}
-// 	return domain.Book{}, errors.New("book not found")
-// }
+func (bu *BookUseCase) UpdateBook(id string, book domain.Book) (domain.Book, error) {
+	return bu.repoBook.UpdateBook(id, book)
+}
 
 // func (bu *BookUseCase) DeleteBook(id string) error {
 // 	id_book, _ := strconv.Atoi(id)
