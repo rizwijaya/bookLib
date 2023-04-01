@@ -1,0 +1,16 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is a sample server for a book library.",
+        "title": "Book Library API",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "Swagger API Team",
+            "email": "admin@rizwijaya.com"
+        },
+        "version": "1.0.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/",
+    "paths": {}
+}

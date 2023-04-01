@@ -10,6 +10,17 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+//	@title			Book Library API
+//	@description	This is a sample server for a book library.
+//	@version		1.0.0
+//	@termsOfService	http://swagger.io/terms/
+//	@contact.name	Swagger API Team
+//	@contact.email	admin@rizwijaya.com
+//	@licence.name	MIT
+//	@licence.url	http://opensource.org/licenses/MIT
+//	@host			localhost:8080
+//	@BasePath		/
+
 func main() {
 	config, err := config.New()
 	if err != nil {

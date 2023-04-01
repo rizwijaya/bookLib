@@ -2,47 +2,33 @@ package repository
 
 import (
 	"bookLib/modules/v1/book/domain"
+
+	"gorm.io/gorm/clause"
 )
 
-func (r *Repository) AllBooks() ([]domain.Book, error) {
-	var books []domain.Book
+func (r *Repository) AllBooks() (domain.Books, error) {
+	var books domain.Books
 	err := r.db.Find(&books).Error
-	if err != nil {
-		return nil, err
-	}
-	return books, nil
+	return books, err
 }
 
 func (r *Repository) GetBookByID(id string) (domain.Book, error) {
 	var book domain.Book
 	err := r.db.Where("id = " + id).First(&book).Error
-	if err != nil {
-		return domain.Book{}, err
-	}
-	return book, nil
+	return book, err
 }
 
 func (r *Repository) CreateBook(book domain.Book) (domain.Book, error) {
-	result := r.db.Create(&book)
-	if err != nil {
-		return domain.Book{}, err
-	}
-	return book, nil
+	err := r.db.Create(&book).Error
+	return book, err
 }
 
 func (r *Repository) UpdateBook(id string, book domain.Book) (domain.Book, error) {
-	err := r.db.Model(&book).Where("id = " + id).Updates(book).Error
-	if err != nil {
-		return domain.Book{}, err
-	}
-	return book, nil
+	res := r.db.Model(&book).Clauses(clause.Returning{}).Where("id = " + id).Updates(book)
+	return book, res.Error
 }
 
 func (r *Repository) DeleteBook(id string) error {
 	var book domain.Book
-	err := r.db.Where("id = " + id).Delete(&book).Error
-	if err != nil {
-		return err
-	}
-	return nil
+	return r.db.Delete(&book, id).Error
 }

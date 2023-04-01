@@ -22,6 +22,14 @@ start:
 	@echo "Starting server..."
 	./app/main
 
+swag:
+	@echo "Generating swagger docs..."
+	swag init -g ./app/main.go
+
+swag-debug:
+	@echo "Generating swagger docs..."
+	swag init --parseDependency --parseInternal --parseDepth 2 -g app/main.go -d ./
+
 clean:
 	@echo "Cleaning..."
 	rm -rf ./app/main.exe

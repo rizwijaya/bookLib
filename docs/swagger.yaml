@@ -1,0 +1,12 @@
+basePath: /
+host: localhost:8080
+info:
+  contact:
+    email: admin@rizwijaya.com
+    name: Swagger API Team
+  description: This is a sample server for a book library.
+  termsOfService: http://swagger.io/terms/
+  title: Book Library API
+  version: 1.0.0
+paths: {}
+swagger: "2.0"
