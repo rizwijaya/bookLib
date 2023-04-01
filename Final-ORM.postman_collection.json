@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "6e9ef77b-ba03-491f-a99f-201e7087fec7",
-		"name": "BookLib-Challenge-7",
+		"_postman_id": "611b2e4d-0a00-4729-aa3d-288515415790",
+		"name": "Final-ORM",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "15365587"
 	},
@@ -12,15 +12,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/books/",
+					"raw": "http://localhost:8080/books",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"books",
-						""
+						"books"
 					]
 				}
 			},
@@ -32,7 +31,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/books/2",
+					"raw": "http://localhost:8080/books/20",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -40,7 +39,7 @@
 					"port": "8080",
 					"path": [
 						"books",
-						"2"
+						"20"
 					]
 				}
 			},
@@ -52,7 +51,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/books/3",
+					"raw": "http://localhost:8080/books/22",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -60,7 +59,7 @@
 					"port": "8080",
 					"path": [
 						"books",
-						"3"
+						"22"
 					]
 				}
 			},
@@ -73,7 +72,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"title\": \"The Hobbit\",\r\n    \"author\": \"J.R.R. Tolkien\",\r\n    \"desc\": \"The Hobbit is a children's fantasy novel by English author J. R. R. Tolkien. It was published on 21 September 1937 to wide critical acclaim, being nominated for the Carnegie Medal and awarded a prize from the New York Herald Tribune for best juvenile fiction. The book remains popular and is recognized as a classic in children's literature.\"\r\n}"
+					"raw": "{\r\n    \"name_book\": \"The Lion, the Witch and the Wardrobe\",\r\n    \"author\": \"C.S. Lewis\"\r\n}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/books/",
@@ -97,10 +96,10 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"title\": \"The Lion, the Witch and the Wardrobe 2\",\r\n    \"author\": \"C.S. Lewis\",\r\n    \"desc\": \"It is considered a classic of children's literature and is the author's best-known work, having sold over 100 million copies in 47 languages.\"\r\n}"
+					"raw": "{\r\n    \"author\":\"J.K Leuws\"\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/books/4",
+					"raw": "http://localhost:8080/books/20",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -108,7 +107,7 @@
 					"port": "8080",
 					"path": [
 						"books",
-						"4"
+						"20"
 					]
 				}
 			},

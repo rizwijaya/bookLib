@@ -1,7 +1,7 @@
 package api
 
 func SetMessage(message string) Message {
-	return Message(message)
+	return Message{"message": message}
 }
 
 func APIResponse(message string, code int, status string, data interface{}) Response {

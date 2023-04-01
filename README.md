@@ -1,4 +1,4 @@
-### Book Rest API Challenge 6
+### Book Rest API Final Challenge
 ---
 ### Daftar Isi
 
