@@ -11,4 +11,4 @@ type Meta struct {
 	Status  string `json:"status"`
 }
 
-type Message string
+type Message map[string]any

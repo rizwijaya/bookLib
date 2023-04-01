@@ -32,7 +32,7 @@ func (bc *BookController) GetBooks(c *gin.Context) {
 	}
 	if len(book) == 0 {
 		res := api.SetMessage("Book Not Found!")
-		c.JSON(http.StatusNotFound, res)
+		c.JSON(http.StatusOK, res)
 		return
 	}
 	c.JSON(http.StatusOK, book)
@@ -61,7 +61,7 @@ func (bc *BookController) GetBookByID(c *gin.Context) {
 			return
 		}
 		res := api.SetMessage("Failed to Get Book!")
-		c.JSON(http.StatusInternalServerError, res)
+		c.JSON(http.StatusBadRequest, res)
 		return
 	}
 	c.JSON(http.StatusOK, book)
@@ -146,6 +146,12 @@ func (bc *BookController) UpdateBook(c *gin.Context) {
 		return
 	}
 
+	if input.Name_book == "" && input.Author == "" {
+		res := api.SetMessage("Name book and Author cannot be empty!")
+		c.JSON(http.StatusBadRequest, res)
+		return
+	}
+
 	book, err := bc.BookUseCase.UpdateBook(id, input)
 	if err != nil {
 		log.Println(err)
@@ -177,6 +183,11 @@ func (bc *BookController) DeleteBook(c *gin.Context) {
 	err := bc.BookUseCase.DeleteBook(id)
 	if err != nil {
 		log.Println(err)
+		if err.Error() == "record not found" {
+			res := api.SetMessage("Book Not Found!")
+			c.JSON(http.StatusNotFound, res)
+			return
+		}
 		res := api.SetMessage("Failed to Delete Book!")
 		c.JSON(http.StatusBadRequest, res)
 		return

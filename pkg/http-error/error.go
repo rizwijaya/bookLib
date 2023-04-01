@@ -25,22 +25,22 @@ func NoMethod() gin.HandlerFunc {
 func FormValidationError(fe validator.FieldError) string {
 	switch fe.Tag() {
 	case "required":
-		return fe.Field() + " wajib diisi!"
+		return fe.Field() + " is required!"
 	case "email":
-		return fe.Field() + " harus berupa email!"
+		return fe.Field() + " must be a valid email address!"
 	case "min":
-		return fe.Field() + " minimal " + fe.Param() + " karakter!"
+		return fe.Field() + " minimum " + fe.Param() + " characters!"
 	case "max":
-		return fe.Field() + " maksimal " + fe.Param() + " karakter!"
+		return fe.Field() + " maximum " + fe.Param() + " characters!"
 	case "alphanum":
-		return fe.Field() + " hanya boleh berisi huruf dan angka!"
+		return fe.Field() + " must be alphanumeric!"
 	case "numeric":
-		return fe.Field() + " hanya boleh berisi angka!"
+		return fe.Field() + " must be numeric!"
 	case "eqfield":
-		return fe.Field() + " harus sama dengan " + fe.Param() + "!"
+		return fe.Field() + " must be equal to " + fe.Param() + "!"
 	case "alphanumunicode":
-		return fe.Field() + " harus berisi karakter, huruf dan angka!"
+		return fe.Field() + " must be alphanumeric unicode!"
 	default:
-		return fe.Field() + " tidak valid!"
+		return fe.Field() + " is invalid!"
 	}
 }

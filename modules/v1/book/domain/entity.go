@@ -3,11 +3,11 @@ package domain
 import "time"
 
 type Book struct {
-	ID         int       `gorm:"column:id;type:int;primaryKey;autoIncrement;not null"`
-	Title      string    `gorm:"column:title;type:varchar(100);not null"`
-	Author     string    `gorm:"column:author;type:varchar(100);not null"`
-	Updated_at time.Time `gorm:"column:updated_at;type:timestamp;not null"`
-	Created_at time.Time `gorm:"column:created_at;type:timestamp;not null"`
+	ID         int       `json:"id" gorm:"column:id;type:int;primaryKey;autoIncrement;not null"`
+	Name_book  string    `json:"name_book" gorm:"column:name_book;type:varchar(100);not null"`
+	Author     string    `json:"author" gorm:"column:author;type:varchar(100);not null"`
+	Created_at time.Time `json:"created_at" gorm:"column:created_at;type:timestamp;not null"`
+	Updated_at time.Time `json:"updated_at" gorm:"column:updated_at;type:timestamp;not null"`
 }
 
 type Books []Book

@@ -20,7 +20,7 @@ func (bu *BookUseCase) CreateBook(book domain.InsertBook) (domain.Book, error) {
 	}
 	now := time.Now().In(location)
 	books := domain.Book{
-		Title:      book.Title,
+		Name_book:  book.Name_book,
 		Author:     book.Author,
 		Updated_at: now,
 		Created_at: now,
@@ -35,18 +35,27 @@ func (bu *BookUseCase) UpdateBook(id string, input domain.UpdateBook) (domain.Bo
 		return domain.Book{}, err
 	}
 	now := time.Now().In(location)
-	//id_book, err := strconv.Atoi(id)
 	if err != nil {
 		return domain.Book{}, err
 	}
 	book := domain.Book{
-		Title:      input.Title,
+		Name_book:  input.Name_book,
 		Author:     input.Author,
 		Updated_at: now,
+	}
+	//Check Book Exist
+	_, err = bu.repoBook.GetBookByID(id)
+	if err != nil {
+		return domain.Book{}, err
 	}
 	return bu.repoBook.UpdateBook(id, book)
 }
 
 func (bu *BookUseCase) DeleteBook(id string) error {
+	//Check Book Exist
+	_, err := bu.repoBook.GetBookByID(id)
+	if err != nil {
+		return err
+	}
 	return bu.repoBook.DeleteBook(id)
 }
