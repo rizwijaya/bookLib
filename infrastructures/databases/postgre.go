@@ -2,50 +2,29 @@ package database
 
 import (
 	"bookLib/infrastructures/config"
-	"database/sql"
 	"fmt"
 	"log"
 
-	_ "github.com/lib/pq"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
 
-func MigrateDB(db *sql.DB) error {
-	sqlTable := `
-	CREATE TABLE IF NOT EXISTS books(
-		id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-		title varchar(100) NOT NULL,
-		author varchar(100) NOT NULL,
-		description varchar(400) NOT NULL
-	);
-	`
-	_, err := db.Exec(sqlTable)
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-func Postgres() (*sql.DB, error) {
+func Postgres() (*gorm.DB, error) {
 	config, err := config.New()
 	if err != nil {
 		return nil, err
 	}
-	psql := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable", config.Database.Host, config.Database.Port, config.Database.Username, config.Database.Password, config.Database.Name)
-
-	db, err := sql.Open("postgres", psql)
+	dsn := "host=" + config.Database.Host + " user=" + config.Database.Username + " password=" + config.Database.Password + " dbname=" + config.Database.Name + " port=" + config.Database.Port + " sslmode=disable TimeZone=Asia/Jakarta"
+	Db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
+		log.Fatalln(err.Error())
 		return nil, err
 	}
-	//defer db.Close()
 
-	err = db.Ping()
-	if err != nil {
-		return nil, err
-	}
-	return db, nil
+	return Db, nil
 }
 
-func NewDatabases() *sql.DB {
+func NewDatabases() *gorm.DB {
 	db, err := Postgres()
 	if err != nil {
 		log.Fatalln(err)
@@ -53,7 +32,7 @@ func NewDatabases() *sql.DB {
 	}
 	fmt.Println("Successfully connected!")
 
-	// err = MigrateDB(db)
+	// err = db.AutoMigrate(&domain.Book{})
 	// if err != nil {
 	// 	log.Fatalln(err)
 	// 	return nil

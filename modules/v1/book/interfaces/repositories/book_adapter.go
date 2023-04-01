@@ -2,7 +2,8 @@ package repository
 
 import (
 	"bookLib/modules/v1/book/domain"
-	"database/sql"
+
+	"gorm.io/gorm"
 )
 
 type RepositoryPresenter interface {
@@ -14,9 +15,9 @@ type RepositoryPresenter interface {
 }
 
 type Repository struct {
-	db *sql.DB
+	db *gorm.DB
 }
 
-func NewBookRepository(db *sql.DB) *Repository {
+func NewBookRepository(db *gorm.DB) *Repository {
 	return &Repository{db}
 }

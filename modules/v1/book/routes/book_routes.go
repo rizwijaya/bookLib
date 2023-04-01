@@ -2,12 +2,12 @@ package routes
 
 import (
 	bookControllerV1 "bookLib/modules/v1/book/interfaces/controllers"
-	"database/sql"
 
 	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
 )
 
-func NewRouter(router *gin.Engine, db *sql.DB) *gin.Engine {
+func NewRouter(router *gin.Engine, db *gorm.DB) *gin.Engine {
 	bookControllerV1 := bookControllerV1.NewBookController(db)
 	api := router.Group("/books")
 	api.GET("/", bookControllerV1.GetBooks)

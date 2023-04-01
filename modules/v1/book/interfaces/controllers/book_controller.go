@@ -65,7 +65,7 @@ func (bc *BookController) AddBook(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, "Created")
+	c.JSON(http.StatusOK, book)
 }
 
 func (bc *BookController) UpdateBook(c *gin.Context) {
