@@ -35,5 +35,5 @@ func main() {
 	router.NoRoute(error.PageNotFound())
 	router.NoMethod(error.NoMethod())
 
-	router.Run(config.App.Url + ":" + config.App.Port)
+	router.Run(":" + config.App.Port)
 }
