@@ -4,7 +4,7 @@ import (
 	"bookLib/modules/v1/book/domain"
 	"bookLib/pkg/times"
 )
-
+ 
 func (bu *BookUseCase) AllBooks() (domain.Books, error) {
 	return bu.repoBook.AllBooks()
 }
