@@ -2,6 +2,7 @@ package database
 
 import (
 	"bookLib/infrastructures/config"
+	"bookLib/modules/v1/book/domain"
 	"fmt"
 	"log"
 
@@ -32,12 +33,12 @@ func NewDatabases() *gorm.DB {
 	}
 	fmt.Println("Successfully connected!")
 
-	// err = db.AutoMigrate(&domain.Book{})
-	// if err != nil {
-	// 	log.Fatalln(err)
-	// 	return nil
-	// }
-	// fmt.Println("Migration successfully done")
+	err = db.AutoMigrate(&domain.Book{})
+	if err != nil {
+		log.Fatalln(err)
+		return nil
+	}
+	fmt.Println("Migration successfully done")
 
 	return db
 }
