@@ -1,10 +1,10 @@
 package main
 
 import (
+	"bookLib/infrastructures/config"
 	database "bookLib/infrastructures/databases"
 	routesV1 "bookLib/modules/v1/book/routes"
 	error "bookLib/pkg/http-error"
-	"os"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -22,10 +22,7 @@ import (
 //	@BasePath		/
 
 func main() {
-	// config, err := config.New()
-	// if err != nil {
-	// 	panic(err)
-	// }
+	config := config.New()
 
 	router := gin.Default()
 	router.Use(cors.Default())
@@ -34,6 +31,6 @@ func main() {
 	router = routesV1.NewRouter(router, db)
 	router.NoRoute(error.PageNotFound())
 	router.NoMethod(error.NoMethod())
-	port := os.Getenv("PORT")
-	router.Run(":" + port)
+
+	router.Run(":" + config.App.Port)
 }

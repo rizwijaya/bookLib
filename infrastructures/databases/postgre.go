@@ -1,27 +1,19 @@
 package database
 
 import (
+	"bookLib/infrastructures/config"
 	"bookLib/modules/v1/book/domain"
 	"fmt"
 	"log"
-	"os"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
 func Postgres() (*gorm.DB, error) {
-	// config, err := config.New()
-	// if err != nil {
-	// 	return nil, err
-	// }
-	db_name := os.Getenv("DB_NAME")
-	db_username := os.Getenv("DB_USER")
-	db_password := os.Getenv("DB_PASSWORD")
-	db_host := os.Getenv("DB_HOST")
-	db_port := os.Getenv("DB_PORT")
+	config := config.New()
 
-	dsn := "host=" + db_host + " user=" + db_username + " password=" + db_password + " dbname=" + db_name + " port=" + db_port + " sslmode=disable TimeZone=Asia/Jakarta"
+	dsn := "host=" + config.Database.Host + " user=" + config.Database.Username + " password=" + config.Database.Password + " dbname=" + config.Database.Name + " port=" + config.Database.Port + " sslmode=disable TimeZone=Asia/Jakarta"
 	Db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		log.Fatalln(err.Error())
