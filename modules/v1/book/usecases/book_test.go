@@ -298,7 +298,7 @@ func TestBookUseCase_UpdateBook(t *testing.T) {
 			},
 		},
 		{
-			nameTest: "Test Case 2 Update Book: Failed Update Book",
+			nameTest: "Test Case 3 Update Book: Failed Update Book",
 			id:       "3",
 			input: domain.UpdateBook{
 				Name_book: "Harry Potter",
@@ -337,6 +337,69 @@ func TestBookUseCase_UpdateBook(t *testing.T) {
 				assert.NoError(t, err)
 			}
 			assert.Equal(t, tt.result, book)
+		})
+	}
+}
+
+func TestBookUseCase_DeleteBook(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	tests := []struct {
+		nameTest   string
+		id         string
+		result     domain.Book
+		wantErr    bool
+		repository func(repo *m_repo.MockRepositoryPresenter)
+	}{
+		{
+			nameTest: "Test Case 1 Delete Book: Success",
+			id:       "1",
+			repository: func(repo *m_repo.MockRepositoryPresenter) {
+				repo.EXPECT().GetBookByID("1").Return(domain.Book{
+					ID:        1,
+					Name_book: "The Lord of the Rings",
+				}, nil)
+				repo.EXPECT().DeleteBook("1").Return(nil)
+			},
+		},
+		{
+			nameTest: "Test Case 2 Delete Book: Failed, Book Not Found",
+			id:       "2",
+			wantErr:  true,
+			repository: func(repo *m_repo.MockRepositoryPresenter) {
+				repo.EXPECT().GetBookByID("2").Return(domain.Book{}, errors.New("record not found"))
+			},
+		},
+		{
+			nameTest: "Test Case 3 Delete Book: Failed Delete Book",
+			id:       "3",
+			result:   domain.Book{},
+			wantErr:  true,
+			repository: func(repo *m_repo.MockRepositoryPresenter) {
+				repo.EXPECT().GetBookByID("3").Return(domain.Book{
+					ID:        1,
+					Name_book: "Harry Potter",
+				}, nil)
+				repo.EXPECT().DeleteBook("3").Return(errors.New("failed to delete data"))
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.nameTest, func(t *testing.T) {
+			repo := m_repo.NewMockRepositoryPresenter(ctrl)
+			if tt.repository != nil {
+				tt.repository(repo)
+			}
+
+			s := BookUseCase{
+				repoBook: repo,
+			}
+
+			err := s.DeleteBook(tt.id)
+			if (err != nil) && tt.wantErr {
+				assert.Error(t, err)
+			} else {
+				assert.NoError(t, err)
+			}
 		})
 	}
 }
