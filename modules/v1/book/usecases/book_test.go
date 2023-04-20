@@ -9,6 +9,7 @@ import (
 
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"
+	"github.com/tkuchiki/faketime"
 )
 
 func TestBookUseCase_AllBooks(t *testing.T) {
@@ -140,6 +141,90 @@ func TestBookUseCase_GetBookByID(t *testing.T) {
 			}
 
 			book, err := s.GetBookByID(tt.input)
+			if (err != nil) && tt.wantErr {
+				assert.Error(t, err)
+			} else {
+				assert.NoError(t, err)
+			}
+			assert.Equal(t, tt.result, book)
+		})
+	}
+}
+
+func TestBookUseCase_CreateBook(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	f := faketime.NewFaketime(2022, time.November, 27, 11, 30, 01, 0, time.UTC)
+	defer f.Undo()
+	f.Do()
+	location, err := time.LoadLocation("Asia/Jakarta")
+	assert.NoError(t, err)
+	now := time.Now().In(location)
+	tests := []struct {
+		nameTest   string
+		input      domain.InsertBook
+		result     domain.Book
+		wantErr    bool
+		repository func(repo *m_repo.MockRepositoryPresenter)
+	}{
+		{
+			nameTest: "Test Case 1 Create Book: Success",
+			input: domain.InsertBook{
+				Name_book: "The Lord of the Rings",
+				Author:    "J. R. R. Tolkien",
+			},
+			result: domain.Book{
+				ID:         1,
+				Name_book:  "The Lord of the Rings",
+				Author:     "J. R. R. Tolkien",
+				Created_at: now,
+				Updated_at: now,
+			},
+			repository: func(repo *m_repo.MockRepositoryPresenter) {
+				repo.EXPECT().CreateBook(domain.Book{
+					Name_book:  "The Lord of the Rings",
+					Author:     "J. R. R. Tolkien",
+					Created_at: now,
+					Updated_at: now,
+				},
+				).Return(domain.Book{
+					ID:         1,
+					Name_book:  "The Lord of the Rings",
+					Author:     "J. R. R. Tolkien",
+					Created_at: now,
+					Updated_at: now,
+				}, nil)
+			},
+		},
+		{
+			nameTest: "Test Case 2 Create Book: Failed",
+			input: domain.InsertBook{
+				Name_book: "Harry Potter",
+				Author:    "J. K. Rowling",
+			},
+			result:  domain.Book{},
+			wantErr: true,
+			repository: func(repo *m_repo.MockRepositoryPresenter) {
+				repo.EXPECT().CreateBook(domain.Book{
+					Name_book:  "Harry Potter",
+					Author:     "J. K. Rowling",
+					Created_at: now,
+					Updated_at: now,
+				}).Return(domain.Book{}, errors.New("failed to update database"))
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.nameTest, func(t *testing.T) {
+			repo := m_repo.NewMockRepositoryPresenter(ctrl)
+			if tt.repository != nil {
+				tt.repository(repo)
+			}
+
+			s := BookUseCase{
+				repoBook: repo,
+			}
+
+			book, err := s.CreateBook(tt.input)
 			if (err != nil) && tt.wantErr {
 				assert.Error(t, err)
 			} else {
