@@ -14,9 +14,9 @@ type BookAdapter interface {
 }
 
 type BookUseCase struct {
-	repoBook *bookRepository.Repository
+	repoBook bookRepository.RepositoryPresenter
 }
 
-func NewBookUseCase(repoBook *bookRepository.Repository) *BookUseCase {
+func NewBookUseCase(repoBook bookRepository.RepositoryPresenter) *BookUseCase {
 	return &BookUseCase{repoBook}
 }
